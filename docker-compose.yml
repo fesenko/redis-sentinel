@@ -1,0 +1,12 @@
+version: '3.3'
+services:
+  redis-master:
+    image: redis:3.2.4
+  slave:
+    image: redis:3.2.4
+    command: redis-server --slaveof redis-master 6379
+  sentinel:
+    image: redis-sentinel:latest
+    environment:
+      - SENTINEL_DOWN_AFTER=5000
+      - SENTINEL_FAILOVER=5000
